@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         pv = GetComponent<PhotonView>();
+        rb = GetComponent<Rigidbody>(); // Rigidbody 가져오기
     }
 
 
@@ -32,7 +33,7 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.G))
             {
-                FireBullet();
+                ApplyUpwardForce();
             }
         }
     }
@@ -44,14 +45,17 @@ public class PlayerController : MonoBehaviour
     }
 
     [PunRPC]
-    void FireBullet_RPC()
+    void ApplyUpwardForce_RPC()
     {
-        Instantiate(bulletPrefab, transform.position + new Vector3(0, 2, 0), transform.rotation);
-        Debug.Log("총알 발사!!!");
+        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        Debug.Log("🔥 위쪽으로 힘을 가했다!!!");
     }
 
-    void FireBullet()
+    void ApplyUpwardForce()
     {
-        pv.RPC("FireBullet_RPC", RpcTarget.All);
+        pv.RPC("ApplyUpwardForce_RPC", RpcTarget.All);
     }
+
+    public float jumpForce = 5f; // 위로 가해지는 힘
+    private Rigidbody rb;
 }
