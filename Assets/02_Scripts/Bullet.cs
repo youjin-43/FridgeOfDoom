@@ -13,6 +13,15 @@ public class Bullet : MonoBehaviourPun
             GetComponent<Rigidbody>().linearVelocity = transform.up * speed;
         }
 
-        Destroy(gameObject, destroyTime); // 3초 후 자동 제거
+        // 1초 뒤에 네트워크에서 삭제
+        Invoke("DestroyBullet", destroyTime);
+    }
+
+    void DestroyBullet()
+    {
+        if (photonView.IsMine)
+        {
+            PhotonNetwork.Destroy(gameObject);
+        }
     }
 }
