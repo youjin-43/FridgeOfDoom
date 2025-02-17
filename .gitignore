@@ -71,3 +71,13 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+Assets/ImportedAssets/VSeries/vFavorites/vFavorites Data.asset
+Assets/ImportedAssets/VSeries/vFavorites/vFavorites Data.asset.meta
+Assets/ImportedAssets/VSeries/vFolders/vFolders Data.asset
+Assets/ImportedAssets/VSeries/vFolders/vFolders Data.asset.meta
+Assets/ImportedAssets/VSeries/vHierarchy/vHierarchy Data.asset
+Assets/ImportedAssets/VSeries/vHierarchy/vHierarchy Data.asset.meta
+Assets/ImportedAssets/VSeries/vInspector/vInspector Data.asset
+Assets/ImportedAssets/VSeries/vInspector/vInspector Data.asset.meta
+Assets/ImportedAssets/VSeries/vFolders/vFolders Palette.asset.meta
+Assets/ImportedAssets/VSeries/vFolders/vFolders Palette.asset
