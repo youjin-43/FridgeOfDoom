@@ -4,7 +4,7 @@ public class PlayerController : MonoBehaviour
 {
     PhotonView pv;
     [SerializeField] GameObject bulletPrefab;
-
+    public GameObject bullet;   
     private void Start()
     {
         pv = GetComponent<PhotonView>();
