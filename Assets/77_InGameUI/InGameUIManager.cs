@@ -30,16 +30,21 @@ public class InGameUIManager : MonoBehaviour
     }
     #endregion
 
-    [SerializeField] private UI_ControlIndicator UI_ControlIndicator;
-    [SerializeField] private UI_Minimap          UI_Minimap;
-    [SerializeField] private UI_Timer            UI_Timer;
-
-    public UI_ControlIndicator ControlIndicator => UI_ControlIndicator;
-    public UI_Minimap         Minimap           => UI_Minimap;
-    public UI_Timer           Timer             => UI_Timer;
+    public UI_Minimap          Minimap        { get; private set; }
+    public UI_Timer            Timer          { get; private set; }
+    public UI_GameStatus       GameStatus     { get; private set; }
+    public UI_SkillIndicator   SkillIndicator { get; private set; }
 
     void Awake()
     {
         SingletonInitialize();
+
+        // UI วาด็
+        Timer            = transform.GetChild(0).GetComponent<UI_Timer>();
+        GameStatus       = transform.GetChild(1).GetComponent<UI_GameStatus>();
+        SkillIndicator = transform.GetChild(2).GetComponent<UI_SkillIndicator>();
+
+
+        Minimap          = transform.GetChild(4).GetChild(0).GetComponent<UI_Minimap>();
     }
 }
