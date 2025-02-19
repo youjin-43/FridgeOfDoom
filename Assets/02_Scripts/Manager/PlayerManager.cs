@@ -16,10 +16,12 @@ public class PlayerManager : MonoBehaviour
     private CinemachineVirtualCamera aimCam;
     [SerializeField]
     private LayerMask targetLayer;
+    private Animator anim;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         input = GetComponent<StarterAssetsInputs>();
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -37,12 +39,13 @@ public class PlayerManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.F)) // 발사 입력 감지 (Fire1 버튼)
         {
-            ThrowProjectile();
+            anim.SetBool("Shoot", true);
         }
     }
 
     void ThrowProjectile()
     {
+        
         if (bulletPrefab != null && bulletSpawnPoint != null)
         {
             GameObject projectile = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
@@ -53,6 +56,11 @@ public class PlayerManager : MonoBehaviour
                 rb.linearVelocity = throwDirection;
             }
         }
+    }
+
+    public void EndShoot()
+    {
+        anim.SetBool("Shoot", false);
     }
 
     void LookSameCameraDirection()
@@ -67,6 +75,7 @@ public class PlayerManager : MonoBehaviour
             targetPosition = hit.point;
             
         }
+        
        
         Vector3 targetAim = targetPosition;
         targetAim.y = transform.position.y;
