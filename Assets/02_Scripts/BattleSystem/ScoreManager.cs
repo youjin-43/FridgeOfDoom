@@ -6,16 +6,15 @@ public class ScoreManager : MonoBehaviour
 {
     public static ScoreManager Instance { get; private set; } = null;
 
-    [SerializeField] int winningScore;
-
     Dictionary<int, int> playerScores = new Dictionary<int, int>();
-
 
     int killScoreReward = 1;
 
     private void Awake()
     {
         Instance = this;
+
+        Init();
     }
     public void Init()
     {
@@ -25,22 +24,16 @@ public class ScoreManager : MonoBehaviour
             // ActorNumber와 매칭해서 점수를 0으로 초기화한다
             playerScores[actorNumber] = 0;
         }
-    }
-    public void AddScore(int killerActorNumber, int victimActorNumber) // 플레이어가 승리 점수에 도달했다면 true, 아닐경우 false
-    {
-        // 점수를 추가한다. 승리 조건 점수를 넘지 않도록 제한
-        playerScores[killerActorNumber] = Mathf.Clamp(
-            playerScores[killerActorNumber] + CalculateScore(killerActorNumber, victimActorNumber), 0, winningScore);
 
-        // 우승 점수에 도달했을 때
-        if (playerScores[killerActorNumber] == winningScore)
-        {
-            // 
-        }
+        killScoreReward = 1;
     }
-
-    int CalculateScore(int killerActorNumber, int victimActorNumber)
+    public void AddScore(int killerActorNumber) 
     {
-        return 1;
+        // 점수 추가
+        playerScores[killerActorNumber] += killScoreReward;
+    }
+    public void ModifyKillReward(int reward)
+    {
+        killScoreReward = reward;
     }
 }
