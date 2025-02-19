@@ -14,6 +14,8 @@ public class PlayerManager : MonoBehaviour
     [Header("Aim")]
     [SerializeField]
     private CinemachineVirtualCamera aimCam;
+    [SerializeField]
+    private LayerMask targetLayer;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -23,6 +25,8 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        LookSameCameraDirection();
+
         if (input.aim)
         {
             aimCam.gameObject.SetActive(true);
@@ -49,5 +53,25 @@ public class PlayerManager : MonoBehaviour
                 rb.linearVelocity = throwDirection;
             }
         }
+    }
+
+    void LookSameCameraDirection()
+    {
+        Transform camTransform = Camera.main.transform;
+        RaycastHit hit;
+        Vector3 targetPosition = Vector3.zero;
+        
+
+        if (Physics.Raycast(camTransform.position, camTransform.forward, out hit, Mathf.Infinity, targetLayer))
+        {
+            targetPosition = hit.point;
+            
+        }
+       
+        Vector3 targetAim = targetPosition;
+        targetAim.y = transform.position.y;
+        Vector3 aimDir = (targetAim - transform.position).normalized;
+
+        transform.forward = Vector3.Lerp(transform.forward, aimDir, Time.deltaTime * 30f);
     }
 }
