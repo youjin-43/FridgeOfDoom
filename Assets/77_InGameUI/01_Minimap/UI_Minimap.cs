@@ -2,15 +2,12 @@ using UnityEngine;
 
 public class UI_Minimap : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [SerializeField] Transform PlayerTransform;
+    [SerializeField] Transform MinimapCamera;
 
-    // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
-        
+        MinimapCamera.position = new Vector3(PlayerTransform.position.x, 20f, PlayerTransform.position.z);
+        MinimapCamera.rotation = Quaternion.Euler(90f, PlayerTransform.localEulerAngles.y, 0f);
     }
 }
