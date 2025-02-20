@@ -1,4 +1,4 @@
-using Photon.Pun;
+ï»¿using Photon.Pun;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,22 +18,26 @@ public class ScoreManager : MonoBehaviour
     }
     public void Init()
     {
-        // ¸ğµç ÇÃ·¹ÀÌ¾îÀÇ ActorNumber¸¦ °¡Á®¿Â´Ù
+        // ëª¨ë“  í”Œë ˆì´ì–´ì˜ ActorNumberë¥¼ ê°€ì ¸ì˜¨ë‹¤
         foreach (int actorNumber in PhotonNetwork.CurrentRoom.Players.Keys)
         {
-            // ActorNumber¿Í ¸ÅÄªÇØ¼­ Á¡¼ö¸¦ 0À¸·Î ÃÊ±âÈ­ÇÑ´Ù
+            // ActorNumberì™€ ë§¤ì¹­í•´ì„œ ì ìˆ˜ë¥¼ 0ìœ¼ë¡œ ì´ˆê¸°í™”í•œë‹¤
             playerScores[actorNumber] = 0;
         }
 
         killScoreReward = 1;
     }
-    public void AddScore(int killerActorNumber) 
+    public void AddScore(int killerActorNumber, int victimActorNumber)
     {
-        // Á¡¼ö Ãß°¡
-        playerScores[killerActorNumber] += killScoreReward;
+        // ì ìˆ˜ ì¶”ê°€
+        //playerScores[killerActorNumber] += GetKillScoreReward(victimActorNumber);
     }
     public void ModifyKillReward(int reward)
     {
         killScoreReward = reward;
     }
+    //int GetKillScoreReward(int victimActorNumber)
+    //{
+
+    //}
 }

@@ -1,4 +1,4 @@
-using ExitGames.Client.Photon;
+ï»¿using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
 using System.Collections.Generic;
@@ -23,15 +23,15 @@ public class BattleUIController : MonoBehaviour, IOnEventCallback
 
         scoreboardPanel.SetActive(false);
 
-        // ¸ğµç ÇÃ·¹ÀÌ¾îÀÇ ActorNumber¸¦ °¡Á®¿Â´Ù
+        // ëª¨ë“  í”Œë ˆì´ì–´ì˜ ActorNumberë¥¼ ê°€ì ¸ì˜¨ë‹¤
         foreach (int actorNumber in PhotonNetwork.CurrentRoom.Players.Keys)
         {
-            // ºñ¾îÀÖ´Â UI¿¡ PlayerScoreEntry¸¦ Ãß°¡ÇÏ°í Dictionary·Î actorNumber¿Í ¸ÅÄªÇÑ´Ù
+            // ë¹„ì–´ìˆëŠ” UIì— PlayerScoreEntryë¥¼ ì¶”ê°€í•˜ê³  Dictionaryë¡œ actorNumberì™€ ë§¤ì¹­í•œë‹¤
             playerScoreEntries[actorNumber] = InstantiatePlayerScoreEntry(PhotonNetwork.CurrentRoom.Players[actorNumber]);
         }
 
-        //»ı¼º Å×½ºÆ®
-        //for (int i = 0; i < 6; i++) playerScoreEntries[0] = InstantiatePlayerScoreEntry(null);
+        //ìƒì„± í…ŒìŠ¤íŠ¸
+        for (int i = 0; i < 6; i++) playerScoreEntries[0] = InstantiatePlayerScoreEntry(null);
     }
     private void Update()
     {
@@ -55,22 +55,60 @@ public class BattleUIController : MonoBehaviour, IOnEventCallback
     }
     public void OnEvent(EventData photonEvent)
     {
-        switch ((RaiseEventCode)photonEvent.Code)
-        {
-            case RaiseEventCode.ModifyScore:    // Á¡¼ö º¯°æ ÀÌº¥Æ®
-                ModifyScore(photonEvent); break;
-        }
+        UpdatePlayerScoreEntry(photonEvent, (RaiseEventCode)photonEvent.Code);
+
+        //switch ((RaiseEventCode)photonEvent.Code)
+        //{
+        //    case RaiseEventCode.UpdateKillCount:    // í‚¬ ë³€ê²½ ì´ë²¤íŠ¸
+        //        UpdateKillCount(photonEvent); break;
+
+        //    case RaiseEventCode.UpdateDeathCount:   // ë°ìŠ¤ ë³€ê²½ ì´ë²¤íŠ¸
+        //        UpdateDeathCount(photonEvent); break;
+
+        //    case RaiseEventCode.UpdateAssistCount:  // ì–´ì‹œìŠ¤íŠ¸ ë³€ê²½ ì´ë²¤íŠ¸
+        //        UpdateDeathCount(photonEvent); break;
+
+        //    case RaiseEventCode.UpdateScore:        // ì ìˆ˜ ë³€ê²½ ì´ë²¤íŠ¸
+        //        UpdateScore(photonEvent); break;
+        //}
     }
-    void ModifyScore(EventData photonEvent)
+    void UpdatePlayerScoreEntry(EventData photonEvent, RaiseEventCode raiseEventCode)
+    {
+
+    }
+    void UpdateKillCount(EventData photonEvent)
     {
         int actorNumber = ((int[])photonEvent.CustomData)[0];
-        int score = ((int[])photonEvent.CustomData)[1];
+        int killCount = ((int[])photonEvent.CustomData)[1];
+
+        playerScoreEntries[actorNumber].SetKillCount(killCount);
+    }
+    void UpdateDeathCount(EventData photonEvent)
+    {
+        int actorNumber = ((int[])photonEvent.CustomData)[0];
+        int killCount = ((int[])photonEvent.CustomData)[1];
+
+        playerScoreEntries[actorNumber].SetKillCount(killCount);
+    }
+    void UpdateAssistCount(EventData photonEvent)
+    {
+        int actorNumber = ((int[])photonEvent.CustomData)[0];
+        int killCount = ((int[])photonEvent.CustomData)[1];
+
+        playerScoreEntries[actorNumber].SetKillCount(killCount);
+    }
+    void UpdateScore(EventData photonEvent)
+    {
+        int actorNumber = ((int[])photonEvent.CustomData)[0];
+        int killCount = ((int[])photonEvent.CustomData)[1];
+
+        playerScoreEntries[actorNumber].SetKillCount(killCount);
     }
     PlayerScoreEntry InstantiatePlayerScoreEntry(Player player)
     {
         PlayerScoreEntry entry = Instantiate(playerScoreEntryPrefab, scoreEntryParent);
 
-        entry.SetData(player);
+        entry.Init(player);
 
         return entry;
     }

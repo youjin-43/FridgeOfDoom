@@ -2,5 +2,8 @@ using UnityEngine;
 
 public enum RaiseEventCode
 {
-    ModifyScore = 50,
+    UpdateKillCount = 50,
+    UpdateDeathCount = 51,
+    UpdateAssistCount = 52,
+    UpdateScore = 53,
 }
