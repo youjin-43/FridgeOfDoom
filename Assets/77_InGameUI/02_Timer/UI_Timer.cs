@@ -1,23 +1,31 @@
+using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public class UI_Timer : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private TextMeshProUGUI _timerText;
+
+    void Awake()
     {
-        
+        _timerText = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void StartTimer(float time)
     {
-        
+        StartCoroutine(SetTimer(time));
     }
 
-    private int v = 0;
-
-    public void SetValue(int  value)
+    private IEnumerator SetTimer(float time)
     {
-        v = value;
+        float timer = time;
+
+        while(timer > 0)
+        {
+            yield return null;
+
+            timer -= Time.deltaTime;
+            _timerText.text = $"{(int)(timer / 60)} : {(int)(timer % 60):D2}";
+        }
     }
 }

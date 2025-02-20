@@ -12,6 +12,9 @@ public class UI_SkillIndicator : MonoBehaviour
     private Image _skill_LClick_CooldownEffect;
     private Image _skill_RClick_CooldownEffect;
 
+    // 스킬 비활성화 이펙트(우클릭(단검 던지기) 전용)
+    private Image _skillActivation;
+
     // 단검 갯수 카운터
     private List<GameObject> _daggerCounter = new List<GameObject>();
 
@@ -26,8 +29,12 @@ public class UI_SkillIndicator : MonoBehaviour
         _skill_LClick_CooldownEffect.gameObject.SetActive(false);
         _skill_RClick_CooldownEffect.gameObject.SetActive(false);
 
+        // 스킬 비활성화 이펙트(우클릭(단검 던지기) 전용)
+        _skillActivation = transform.GetChild(2).GetChild(2).GetComponent<Image>();
+        _skillActivation.gameObject.SetActive(false);
+
         // 단검 갯수 카운트
-        Transform daggerCounter = transform.GetChild(2).GetChild(3).transform;
+        Transform daggerCounter = transform.GetChild(2).GetChild(4).transform;
 
         for(int i = 0; i < 5; ++i)
         {
@@ -77,6 +84,8 @@ public class UI_SkillIndicator : MonoBehaviour
     #region DAGGERCOUNT
     public void DaggerCountOn(int count)
     {
+        _skillActivation.gameObject.SetActive(false);
+
         int tmp = 0;
 
         foreach(GameObject counter in _daggerCounter)
@@ -100,6 +109,16 @@ public class UI_SkillIndicator : MonoBehaviour
         {
             if(_daggerCounter[i].activeSelf == true)
             {
+                // 마지막 단검까지 카운터를 Off한다는 뜻은
+                // 전부 다 던졌다는 소리
+                // 그렇다면 우클릭은 비활성화 이펙트 ON
+                if(i == 0)
+                {
+                    _skillActivation.gameObject.SetActive(true);
+                    //Color color = _skill_RClick_CooldownEffect.color;
+                    //_skill_RClick_CooldownEffect.color = new Color(color.r, color.g, color.b, 0f);
+                }
+
                 _daggerCounter[i].SetActive(false);
                 return;
             }

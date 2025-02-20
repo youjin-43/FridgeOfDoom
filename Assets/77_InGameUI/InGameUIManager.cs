@@ -47,7 +47,14 @@ public class InGameUIManager : MonoBehaviour
     }
 
     #region TIMER
-
+    /// <summary>
+    /// 라운드가 시작될 때 호출해 주세요
+    /// </summary>
+    /// <param name="time">라운드 제한시간 입니다.</param>
+    public void StartTimer(float time)
+    {
+        Timer.StartTimer(time);
+    }
     #endregion
 
 
@@ -77,7 +84,7 @@ public class InGameUIManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 단검 갯수가 추가될 때 호출해 주세요
+    /// 단검 갯수가 증가될 때 호출해 주세요
     /// </summary>
     public void AddDagger(int count = 1)
     {
