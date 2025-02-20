@@ -45,4 +45,48 @@ public class InGameUIManager : MonoBehaviour
         GameStatus     = transform.GetChild(2).GetComponent<UI_GameStatus>();
         SkillIndicator = transform.GetChild(3).GetComponent<UI_SkillIndicator>();
     }
+
+    #region TIMER
+
+    #endregion
+
+
+    #region GAME STATUS
+
+    #endregion
+
+    #region SKILL INDICATOR
+    /// <summary>
+    /// 플레이어가 스킬을 사용하면 UI와 연동되게 하는 함수입니다.
+    /// </summary>
+    /// <param name="key">어떤 키(키보드)의 스킬을 사용했나요?</param>
+    /// <param name="time">그 스킬의 쿨타임은 몇초인가요?</param>
+    public void UseSkill(KeyCode key, float time)
+    {
+        SkillIndicator.StartCooldownEffect(key, time);
+    }
+
+    /// <summary>
+    /// 플레이어가 스킬을 사용하면 UI와 연동되게 하는 함수입니다.
+    /// </summary>
+    /// <param name="button">어떤 버튼(마우스)의 스킬을 사용했나요?</param>
+    /// <param name="time">그 스킬의 쿨타임은 몇초인가요?</param>
+    public void UseSkill(int button, float time)
+    {
+        SkillIndicator.StartCooldownEffect(button, time);
+    }
+
+    /// <summary>
+    /// 단검 갯수가 추가될 때 호출해 주세요
+    /// </summary>
+    public void AddDagger(int count = 1)
+    {
+        if(count == 0)
+        {
+            return;
+        }
+
+        SkillIndicator.DaggerCountOn(count);
+    }
+    #endregion
 }

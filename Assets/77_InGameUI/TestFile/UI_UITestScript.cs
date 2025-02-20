@@ -27,22 +27,24 @@ public class UI_UITestScript : MonoBehaviour
         if(Input.GetMouseButtonDown(0))
         {
             Debug.Log("좌클릭 스킬 발동");
-            InGameUIManager.Instance.SkillIndicator.StartCooldownEffect(0, 2);
+            InGameUIManager.Instance.UseSkill(0, 2);
         }
         if (Input.GetMouseButtonDown(1))
         {
             Debug.Log("우클릭 스킬 발동");
-            InGameUIManager.Instance.SkillIndicator.StartCooldownEffect(1, 3);
+            InGameUIManager.Instance.UseSkill(1, 3);
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Debug.Log("Space 스킬 발동");
-            InGameUIManager.Instance.SkillIndicator.StartCooldownEffect(KeyCode.Space, 4);
+            InGameUIManager.Instance.UseSkill(KeyCode.Space, 4);
         }
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             Debug.Log("Shift 스킬 발동");
-            InGameUIManager.Instance.SkillIndicator.StartCooldownEffect(KeyCode.LeftShift, 5);
+            //InGameUIManager.Instance.UseSkill(KeyCode.Space, 5);
+
+            InGameUIManager.Instance.SkillIndicator.DaggerCountOn(1);
         }
     }
 }
