@@ -10,9 +10,6 @@ public class UI_SkillIndicator : MonoBehaviour
     private Image _skill_LClick_CooldownEffect;
     private Image _skill_RClick_CooldownEffect;
 
-    // Magazine Image
-    private Image 
-
     void Awake()
     {
         // Cooldown Effect
