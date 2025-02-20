@@ -6,35 +6,28 @@ using UnityEngine.UI;
 public class UI_SkillIndicator : MonoBehaviour
 {
     // Cooldown Effect Sprite
-    private Image _skill_LClick_Image;
-    private Image _skill_RClick_Image;
-    private Image _skill_Space_Image;
-    private Image _skill_Shift_Image;
+    private Image _skill_Shift_CooldownEffect;
+    private Image _skill_LClick_CooldownEffect;
+    private Image _skill_RClick_CooldownEffect;
+
+    // Magazine Image
+    private Image 
 
     void Awake()
     {
         // Cooldown Effect
-        _skill_LClick_Image = transform.GetChild(0).transform.GetChild(1).GetComponent<Image>();
-        _skill_RClick_Image = transform.GetChild(1).transform.GetChild(1).GetComponent<Image>();
-        _skill_Space_Image  = transform.GetChild(2).transform.GetChild(1).GetComponent<Image>();
-        _skill_Shift_Image  = transform.GetChild(3).transform.GetChild(1).GetComponent<Image>();
+        _skill_Shift_CooldownEffect  = transform.GetChild(0).transform.GetChild(1).GetComponent<Image>();
+        _skill_LClick_CooldownEffect = transform.GetChild(1).transform.GetChild(1).GetComponent<Image>();
+        _skill_RClick_CooldownEffect = transform.GetChild(2).transform.GetChild(1).GetComponent<Image>();
 
-        _skill_LClick_Image.gameObject.SetActive(false);
-        _skill_RClick_Image.gameObject.SetActive(false);
-        _skill_Space_Image.gameObject.SetActive(false);
-        _skill_Shift_Image.gameObject.SetActive(false);
+        _skill_Shift_CooldownEffect.gameObject.SetActive(false);
+        _skill_LClick_CooldownEffect.gameObject.SetActive(false);
+        _skill_RClick_CooldownEffect.gameObject.SetActive(false);
     }
 
     public void StartCooldownEffect(KeyCode key, float cooldownTime)
     {
-        if(key == KeyCode.Space)
-        {
-            StartCoroutine(CooldownEffect(_skill_Space_Image, cooldownTime));
-        }
-        else if(key == KeyCode.LeftShift)
-        {
-            StartCoroutine(CooldownEffect(_skill_Shift_Image, cooldownTime));
-        }
+        StartCoroutine(CooldownEffect(_skill_Shift_CooldownEffect, cooldownTime));
     }
 
     public void StartCooldownEffect(int button, float cooldownTime)
@@ -42,12 +35,12 @@ public class UI_SkillIndicator : MonoBehaviour
         // 좌클릭
         if (button == 0)
         {
-            StartCoroutine(CooldownEffect(_skill_LClick_Image, cooldownTime));
+            StartCoroutine(CooldownEffect(_skill_LClick_CooldownEffect, cooldownTime));
         }
         // 우클릭
         else if (button == 1)
         {
-            StartCoroutine(CooldownEffect(_skill_RClick_Image, cooldownTime));
+            StartCoroutine(CooldownEffect(_skill_RClick_CooldownEffect, cooldownTime));
         }
     }
 
