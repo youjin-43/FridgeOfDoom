@@ -1,5 +1,6 @@
 using Photon.Pun.Demo.Asteroids;
 using StarterAssets;
+using System.Collections;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -40,6 +41,7 @@ public class PlayerManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F)) // 발사 입력 감지 (Fire1 버튼)
         {
             anim.SetBool("Shoot", true);
+            StartCoroutine(EndShootCoroutine());
         }
     }
 
@@ -62,24 +64,38 @@ public class PlayerManager : MonoBehaviour
     {
         anim.SetBool("Shoot", false);
     }
-
+    IEnumerator EndShootCoroutine()
+    {
+        yield return new WaitForSeconds(0.2f);
+        anim.SetBool("Shoot", false);
+        
+    }
     void LookSameCameraDirection()
     {
         Transform camTransform = Camera.main.transform;
         RaycastHit hit;
         Vector3 targetPosition = Vector3.zero;
-        
+        Vector3 targetAim;
+        Vector3 aimDir = Vector3.zero;
 
         if (Physics.Raycast(camTransform.position, camTransform.forward, out hit, Mathf.Infinity, targetLayer))
         {
             targetPosition = hit.point;
+
+            targetAim = targetPosition;
+            targetAim.y = transform.position.y;
+            aimDir = (targetAim - transform.position).normalized;
+
             
         }
-        
+        else
+        {
+            targetPosition = camTransform.position;
+            targetAim.y = transform.position.y;
+            aimDir = (transform.position - targetPosition).normalized;
+        }
        
-        Vector3 targetAim = targetPosition;
-        targetAim.y = transform.position.y;
-        Vector3 aimDir = (targetAim - transform.position).normalized;
+        
 
         transform.forward = Vector3.Lerp(transform.forward, aimDir, Time.deltaTime * 30f);
     }
