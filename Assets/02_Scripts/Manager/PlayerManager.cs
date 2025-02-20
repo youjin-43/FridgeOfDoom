@@ -66,7 +66,7 @@ public class PlayerManager : MonoBehaviour
     }
     IEnumerator EndShootCoroutine()
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.24f);
         anim.SetBool("Shoot", false);
         
     }
